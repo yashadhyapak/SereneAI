@@ -34,3 +34,11 @@ yarn-error.log*
 # OS Specific
 .DS_Store
 Thumbs.db
+
+# Extra Academic Project Reports & Scripts (Not part of core Serene.AI app)
+/PERFORMANCE_ANALYSIS.md
+/performance_analysis_2.md
+/performance_analysis_final.md
+/serene_architecture.md
+/generate_plots.py
+/performance_plots/

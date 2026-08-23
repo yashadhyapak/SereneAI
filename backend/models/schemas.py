@@ -17,13 +17,21 @@ class UserResponse(BaseModel):
     name: str
     email: str
 
+class ChatSessionResponse(BaseModel):
+    id: int
+    user_id: int
+    title: str
+    created_at: str
+
 class ChatRequest(BaseModel):
     user_id: int
     message: str
+    session_id: Optional[int] = None
 
 class ChatMessage(BaseModel):
     id: int
     user_id: int
+    session_id: Optional[int] = None
     message: str
     response: str
     timestamp: str

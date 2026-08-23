@@ -26,16 +26,27 @@ export const register = async (name, email, password, confirmPassword) => {
 }
 
 // Chat endpoints
-export const sendMessage = async (userId, message) => {
+export const sendMessage = async (userId, message, sessionId = null) => {
   const response = await api.post("/chat", {
     user_id: userId,
     message,
+    session_id: sessionId
   })
   return response.data
 }
 
-export const getChatHistory = async (userId) => {
-  const response = await api.get(`/chat/${userId}`)
+export const getChatSessions = async (userId) => {
+  const response = await api.get(`/chat/sessions/${userId}`)
+  return response.data
+}
+
+export const createChatSession = async (userId) => {
+  const response = await api.post(`/chat/sessions?user_id=${userId}`)
+  return response.data
+}
+
+export const getChatSessionMessages = async (sessionId) => {
+  const response = await api.get(`/chat/session/${sessionId}`)
   return response.data
 }
 

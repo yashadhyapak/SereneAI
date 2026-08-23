@@ -14,16 +14,29 @@ class User(Base):
     chats = relationship("ChatMessage", back_populates="user")
     diary_entries = relationship("DiaryEntry", back_populates="user")
 
+class ChatSession(Base):
+    __tablename__ = "chat_sessions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    title = Column(String, default="New Conversation")
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User")
+    messages = relationship("ChatMessage", back_populates="session", cascade="all, delete-orphan")
+
 class ChatMessage(Base):
     __tablename__ = "chats"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
+    session_id = Column(Integer, ForeignKey("chat_sessions.id"), nullable=True) # Optional for backward compatibility with old data
     message = Column(Text)
     response = Column(Text)
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
 
     user = relationship("User", back_populates="chats")
+    session = relationship("ChatSession", back_populates="messages")
 
 class DiaryEntry(Base):
     __tablename__ = "diary_entries"

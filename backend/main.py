@@ -12,13 +12,15 @@ db_models.Base.metadata.create_all(bind=engine)
 
 # Seed Demo Accounts
 db = SessionLocal()
-existing_demo = db.query(db_models.User).filter(db_models.User.email == "demo@serene.ai").first()
-if not existing_demo:
-    demo_user = db_models.User(name="Demo User", email="demo@serene.ai", password_hash="demo123")
-    test_user = db_models.User(name="Test User", email="test@serene.ai", password_hash="test123")
-    db.add(demo_user)
-    db.add(test_user)
-    db.commit()
+demo_accounts = [
+    {"name": "Demo User", "email": "demo@serene.ai", "password_hash": "demo123"},
+    {"name": "Test User", "email": "test@serene.ai", "password_hash": "test123"},
+    {"name": "Faculty Evaluator", "email": "faculty@serene.ai", "password_hash": "faculty123"}
+]
+for acc in demo_accounts:
+    if not db.query(db_models.User).filter(db_models.User.email == acc["email"]).first():
+        db.add(db_models.User(**acc))
+db.commit()
 db.close()
 
 

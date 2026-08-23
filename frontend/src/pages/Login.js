@@ -80,6 +80,9 @@ function Login({ onLogin }) {
           <p onClick={() => fillDemo("test@serene.ai", "test123")} style={{ cursor: "pointer" }}>
             test@serene.ai / test123
           </p>
+          <p onClick={() => fillDemo("faculty@serene.ai", "faculty123")} style={{ cursor: "pointer", fontWeight: "600", color: "var(--text-primary)" }}>
+            faculty@serene.ai / faculty123
+          </p>
         </div>
 
         <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
